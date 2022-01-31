@@ -1,0 +1,34 @@
+{
+  "users" : [
+    {
+      "id" : "1",
+      "login" : "login1",
+      "name" : "Сергей",
+      "password" : "password1"
+    },
+    {
+      "id" : "2",
+      "login" : "login2",
+      "name" : "Андрей",
+      "password" : "password2"
+    },
+    {
+      "id" : "3",
+      "login" : "login3",
+      "name" : "Иван",
+      "password" : "password3"
+    },
+    {
+      "id" : "4",
+      "login" : "login4",
+      "name" : "Александр",
+      "password" : "password4"
+    },
+    {
+      "id" : "5",
+      "login" : "login5",
+      "name" : "Анатолий",
+      "password" : "password5"
+    }
+  ]
+}

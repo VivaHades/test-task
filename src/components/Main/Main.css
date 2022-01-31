@@ -1,0 +1,64 @@
+.mainWrapper {
+  width: 100%;
+  display:flex;
+  flex-direction: column;
+}
+.mainWrapper > nav {
+  margin: 0 15px;
+}
+.mainWrapper > .label {
+  margin: 0 15px;
+}
+.mainWrapper .label > h1 {
+  max-width: 727px;
+  margin: 96px 0px 35px 0;
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 3.625rem;
+  line-height: 138%;
+  letter-spacing: 0.2px;
+}
+.cardsWrapper {
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.contacts {
+  display: inline-block;
+  margin-left: 10px;
+  text-decoration: none;
+}
+.login, .contacts {
+  height:52px;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 22px;
+  background-color: #fff;
+  font-size: 14px;
+  color: #FF685B;
+  padding: 15px 40px;
+  border: 1px solid #FF685B;
+  border-radius: 5px;
+  margin-bottom: 96px;
+  cursor: pointer;
+}
+.login:hover, 
+.contacts:hover {
+  background-color: #FF685B;
+  color: #fff;
+}
+
+@media screen and (max-width: 480px) {
+  .login, .contacts {
+    margin-bottom: 30px !important;
+  }
+  .cardsWrapper {
+    justify-content: center;
+  }
+  .contactsLogout {
+    margin: 0px
+  }
+}
