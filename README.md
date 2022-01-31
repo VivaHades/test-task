@@ -21,14 +21,15 @@
     }
 
 Аутентификация пользователя и логаут.
-    function loginUser() {
-      data.users.map( user => {
-        if (user.login === login && user.password === password) {
-          setLoginedUser(user)
-          setAuthenticated(true)
+        function loginUser() {
+          data.users.map( user => {
+            if (user.login === login && user.password === password) {
+              setLoginedUser(user)
+              setAuthenticated(true)
+            }
+          })
         }
-      })
-    }
+    
     function logoutUser() {
       setLoginedUser({})
       setAuthenticated(false)
