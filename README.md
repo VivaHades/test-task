@@ -12,6 +12,7 @@
     const [loginedUser, setLoginedUser] = useState({})
 
 Хендлеры пороля и логина.
+
     function handleLoginChange(login) {
       setLogin(login)
     }
@@ -21,6 +22,7 @@
     }
 
 Аутентификация пользователя и логаут.
+
     function loginUser() {
       data.users.map( user => {
         if (user.login === login && user.password === password) {
@@ -29,6 +31,7 @@
         }
       })
     }
+
     function logoutUser() {
       setLoginedUser({})
       setAuthenticated(false)
