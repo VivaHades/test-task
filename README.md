@@ -1,15 +1,15 @@
 # component App
 
 ## Стейты App
-  function App() {
-    //стейт для определения рендерить модалку или нет
-    const [authModalOpen, setAuthModalOpen] = useState(false)
-    const [password, setPassword] = useState('')
-    const [login, setLogin] = useState('')
-    //стейт определяющий, залогинен ли пользователь
-    const [authenticated, setAuthenticated] = useState(false)
-    //стейт хрянящий информацию о залогиненом пользователе
-    const [loginedUser, setLoginedUser] = useState({})
+    function App() {
+      //стейт для определения рендерить модалку или нет
+      const [authModalOpen, setAuthModalOpen] = useState(false)
+      const [password, setPassword] = useState('')
+      const [login, setLogin] = useState('')
+      //стейт определяющий, залогинен ли пользователь
+      const [authenticated, setAuthenticated] = useState(false)
+      //стейт хрянящий информацию о залогиненом пользователе
+      const [loginedUser, setLoginedUser] = useState({})
 
 Хендлеры пороля и логина.
     function handleLoginChange(login) {
