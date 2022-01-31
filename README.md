@@ -1,6 +1,7 @@
 # component App
 
 ## Стейты App
+
     function App() {
       //стейт для определения рендерить модалку или нет
       const [authModalOpen, setAuthModalOpen] = useState(false)
@@ -12,6 +13,7 @@
       const [loginedUser, setLoginedUser] = useState({})
 
 Хендлеры пороля и логина.
+
     function handleLoginChange(login) {
       setLogin(login)
     }
@@ -21,6 +23,7 @@
     }
 
 Аутентификация пользователя и логаут.
+
     function loginUser() {
         data.users.map( user => {
         if (user.login === login && user.password === password) {
@@ -35,7 +38,7 @@
       setAuthenticated(false)
     }
 
-
+    
     return (
       <BrowserRouter>
         <div className='App'>
