@@ -33,8 +33,6 @@ function App() {
         setAuthenticated(true)
       }
     })
-    console.log(login + ' ' + password)
-    return "Неверный логин или пороль"
   }
   function logoutUser() {
     setLoginedUser({})
