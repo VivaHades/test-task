@@ -8,7 +8,7 @@
       const [login, setLogin] = useState('')
       //стейт определяющий, залогинен ли пользователь
       const [authenticated, setAuthenticated] = useState(false)
-      //стейт хрянящий информацию о залогиненом пользователе
+      //стейт хрянящий информацию о залогинином пользователе
       const [loginedUser, setLoginedUser] = useState({})
 
 Хендлеры пороля и логина.
