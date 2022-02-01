@@ -1,15 +1,15 @@
-# component App
+# Компонент App
 
 Стейты App.
 
     function App() {
-      //стейт для определения рендерить модалку или нет
+    стейт для определения рендерить модалку или нет
       const [authModalOpen, setAuthModalOpen] = useState(false)
       const [password, setPassword] = useState('')
       const [login, setLogin] = useState('')
-      //стейт определяющий, залогинен ли пользователь
+    стейт определяющий, залогинен ли пользователь
       const [authenticated, setAuthenticated] = useState(false)
-      //стейт хрянящий информацию о залогинином пользователе
+    стейт хрянящий информацию о залогинином пользователе
       const [loginedUser, setLoginedUser] = useState({})
 
 Хендлеры пороля и логина.
@@ -25,12 +25,15 @@
 Аутентификация пользователя и логаут.
 
     function loginUser() {
-        data.users.map( user => {
-        if (user.login === login && user.password === password) {
-            setLoginedUser(user)
-            setAuthenticated(true)
+      for (const user in data.users) {
+        if (data.users[user].login === login && 
+        data.users[user].password === password) {
+          setLoginedUser(data.users[user])
+          setAuthenticated(true)
+          return true
         }
-        })
+      }
+      return false
     }
     
     function logoutUser() {
@@ -38,7 +41,7 @@
       setAuthenticated(false)
     }
 
-    
+Возвращаем компонент
     return (
       <BrowserRouter>
         <div className='App'>
@@ -99,7 +102,7 @@
 
 ## Main
 
-Содержимое карточек. Вынес его отдельно, потому что так можно будет легко дополнить их список или вообще получать их от сервера, дополняя список услуг автоматически
+Содержимое карточек вынесем отдельно, потому что так можно будет легко дополнить их список или вообще получать их от сервера, дополняя список услуг автоматически.
 
     const cardsContent = [
       {
