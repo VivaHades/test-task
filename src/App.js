@@ -27,13 +27,17 @@ function App() {
   }
 
   function loginUser() {
-    data.users.map( user => {
-      if (user.login === login && user.password === password) {
-        setLoginedUser(user)
+    for (const user in data.users) {
+      if (data.users[user].login === login && 
+      data.users[user].password === password) {
+        setLoginedUser(data.users[user])
         setAuthenticated(true)
+        return true
       }
-    })
+    }
+    return false
   }
+
   function logoutUser() {
     setLoginedUser({})
     setAuthenticated(false)
@@ -80,13 +84,15 @@ function App() {
                   />
               } 
             />     
-            <Route path="/contacts" element={<Contacts />}/>
+            <Route path="/contacts" element={<Contacts 
+              authModalOpen={authModalOpen}
+            />}/>
           </Routes>
         </div>
         <AuthModal
           onButtonClick={() => loginUser()}
           modalOpen={authModalOpen}
-          setModalOpen={() => setAuthModalOpen(false)} 
+          setModalClose={() => setAuthModalOpen(false)} 
           onLoginChange={handleLoginChange}
           onPasswordChange={handlePasswordChange} 
           login={login}

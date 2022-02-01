@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import './AuthModal.css'
-import { createBrowserHistory } from 'history';
+import { useNavigate } from 'react-router-dom'
 
-const history = createBrowserHistory()
+
 
 export default function AuthModal(props) {
   const {
-    setModalOpen, 
+    setModalClose, 
     modalOpen,
     onLoginChange,
     onPasswordChange,
@@ -15,28 +15,30 @@ export default function AuthModal(props) {
     onButtonClick
   } = props
 
-  const [passwordVerified, setPasswordVerified] = useState(false)
-  
+  const [error, setError] = useState('')
+  const navigate = useNavigate()
+
   function handleLoginChange(e) {
     onLoginChange(e.target.value)
-  }
-  function verifyPassword(password) {
-    if(password.length < 8) setPasswordVerified(false)
-    else setPasswordVerified(true)
   }
 
   function handlePasswordChange(e) {
     onPasswordChange(e.target.value)
-    verifyPassword(e.target.value)
   }
+
   function handleClick() {
-    onButtonClick()
-    setModalOpen();
-    history.push('/')
+    const auth = onButtonClick()
+    if(auth) {
+      setModalClose()
+      setError('')
+      navigate('/')
+    } else {
+      setError('Неверный логин или пароль.')
+    }
   }
   const render = (
       <div className='authWrapper'>
-        <div className='bgLayer' onClick={setModalOpen}></div>
+        <div className='bgLayer' onClick={setModalClose}></div>
         <div className='authModal'>
           <h1> Авторизация </h1>
           <form >
@@ -53,12 +55,16 @@ export default function AuthModal(props) {
               value={password} 
             />
             <div className='errorContainer'>
-            { !passwordVerified
-              ? <span className='danger'> Пароль должен содержать не менее 8 символов </span>
-              : null 
-            }
+              { error.length > 0
+              ? <span className='danger'> {error} </span>
+              : null
+              }
+              { password.length < 8
+                ? <span className='danger'> Пароль должен содержать не менее 8 символов </span>
+                : null 
+              }
             </div>
-            { !passwordVerified
+            { password.length < 8
               ? <button disabled type='button' className='disabled'> Войти </button>
               : <button type='button' onClick={handleClick}> Войти </button>
             }

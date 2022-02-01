@@ -38,60 +38,60 @@
     }
 
 
-    return (
-      <BrowserRouter>
-        <div className='App'>
-          <header className={authModalOpen ? 'blured' :''}>
-            <div className='headerWrapper'>
-              <div className='logo'>
-                <Link to='/'><img src={logo} alt='Logo'/></Link>
-              </div>
+        return (
+          <BrowserRouter>
+            <div className='App'>
+              <header className={authModalOpen ? 'blured' :''}>
+                <div className='headerWrapper'>
+                  <div className='logo'>
+                    <Link to='/'><img src={logo} alt='Logo'/></Link>
+                  </div>
 
-              <nav>
-                <Link to='/contacts' className='headerContacts'> Контакты</Link>
-                { authenticated 
-                  ? <button 
-                      className='headerLogin' 
-                      onClick={() => logoutUser()}
-                    > 
-                    Выйти 
-                  </button>
-                : <button 
-                    className='headerLogin'
-                    onClick={() => setAuthModalOpen(true)}
-                  > 
-                  Войти 
-                  </button>
-                }
-              </nav>
+                  <nav>
+                    <Link to='/contacts' className='headerContacts'> Контакты</Link>
+                    { authenticated 
+                      ? <button 
+                          className='headerLogin' 
+                          onClick={() => logoutUser()}
+                        > 
+                        Выйти 
+                      </button>
+                    : <button 
+                        className='headerLogin'
+                        onClick={() => setAuthModalOpen(true)}
+                      > 
+                      Войти 
+                      </button>
+                    }
+                  </nav>
+                </div>
+              </header>
+              <div className='wrapper'>
+                <Routes>
+                  <Route 
+                    path="/" 
+                    element={<Main 
+                        authenticated={authenticated}
+                        user={loginedUser}
+                        logout={() => logoutUser()}
+                        isModalOpen={authModalOpen}
+                        setModalOpen={() => setAuthModalOpen(true)} 
+                        />
+                    } 
+                  />     
+                  <Route path="/contacts" element={<Contacts />}/>
+                </Routes>
+              </div>
+              <AuthModal
+                onButtonClick={() => loginUser()}
+                modalOpen={authModalOpen}
+                setModalOpen={() => setAuthModalOpen(false)} 
+                onLoginChange={handleLoginChange}
+                onPasswordChange={handlePasswordChange} 
+                login={login}
+                password={password}
+              />
             </div>
-          </header>
-          <div className='wrapper'>
-            <Routes>
-              <Route 
-                path="/" 
-                element={<Main 
-                    authenticated={authenticated}
-                    user={loginedUser}
-                    logout={() => logoutUser()}
-                    isModalOpen={authModalOpen}
-                    setModalOpen={() => setAuthModalOpen(true)} 
-                    />
-                } 
-              />     
-              <Route path="/contacts" element={<Contacts />}/>
-            </Routes>
-          </div>
-          <AuthModal
-            onButtonClick={() => loginUser()}
-            modalOpen={authModalOpen}
-            setModalOpen={() => setAuthModalOpen(false)} 
-            onLoginChange={handleLoginChange}
-            onPasswordChange={handlePasswordChange} 
-            login={login}
-            password={password}
-          />
-        </div>
-      </BrowserRouter>
-    );
-  }
+          </BrowserRouter>
+        );
+      }
