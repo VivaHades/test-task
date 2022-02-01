@@ -42,6 +42,7 @@
     }
 
 Возвращаем компонент
+
     return (
       <BrowserRouter>
         <div className='App'>
@@ -100,7 +101,7 @@
     );
   }
 
-## Main
+## Компонент Main
 
 Содержимое карточек вынесем отдельно, потому что так можно будет легко дополнить их список или вообще получать их от сервера, дополняя список услуг автоматически.
 
@@ -124,15 +125,6 @@
         cardContent: 'Рыба текст'
       }
     ]
-
-    export default function Main(props) {
-      const {
-        isModalOpen,
-        setModalOpen,
-        authenticated,
-        user,
-        logout
-      } = props
 
 Если пользователь авторизован - рендерим его профиль.
 
@@ -175,57 +167,46 @@
 
 ## Компонент AuthModal 
 
-Создаем историю браузра, так как после авторизации нам нужно будет перенаправить пользователя на его профиль.
-    
-    const history = createBrowserHistory()
+Импортируем useNavigate для перенаправления на профиль
 
+    import { useNavigate } from 'react-router-dom'
 
+Стейт для ошибки логина или пароля
 
-    export default function AuthModal(props) {
-      const {
-        setModalOpen, 
-        modalOpen,
-        onLoginChange,
-        onPasswordChange,
-        login,
-        password,
-        onButtonClick
-      } = props
+      const [error, setError] = useState('')
+      
+используем хук для перенаправления  
+      
+      const navigate = useNavigate()
 
-Стейт для верификации пароля
-
-      const [passwordVerified, setPasswordVerified] = useState(false)
-
+хендлеры полей
 
       function handleLoginChange(e) {
         onLoginChange(e.target.value)
       }
-      
- верификатор пароля
- 
-      function verifyPassword(password) {
-        if(password.length < 8) setPasswordVerified(false)
-        else setPasswordVerified(true)
-      }
-
 
       function handlePasswordChange(e) {
         onPasswordChange(e.target.value)
-        verifyPassword(e.target.value)
       }
-      
- Перенаправление при отправке формы
- 
+
+При отправке логина и пароля если логин прошел успешно - закрываем модалку и перенаправляем на профиль, иначе инициализируем ошибку
+
       function handleClick() {
-        onButtonClick()
-        setModalOpen();
-        history.push('/')
+        const auth = onButtonClick()
+        if(auth) {
+          setModalClose()
+          setError('')
+          navigate('/')
+        } else {
+          setError('Неверный логин или пароль.')
+        }
       }
       
+ Рендерим модалку
  
       const render = (
           <div className='authWrapper'>
-            <div className='bgLayer' onClick={setModalOpen}></div>
+            <div className='bgLayer' onClick={setModalClose}></div>
             <div className='authModal'>
               <h1> Авторизация </h1>
               <form >
@@ -241,13 +222,24 @@
                   onChange={handlePasswordChange}
                   value={password} 
                 />
+                
+    
+Если длина ошибки больше нуля, значит она есть и мы ее выводим.
+
                 <div className='errorContainer'>
-                { !passwordVerified
-                  ? <span className='danger'> Пароль должен содержать не менее 8 символов </span>
-                  : null 
-                }
+                  { error.length > 0
+                  ? <span className='danger'> {error} </span>
+                  : null
+                  }
+                  
+ Если длина пароля меньше восьми символов - выводим ошибку и дизейблим кнопку.
+ 
+                  { password.length < 8
+                    ? <span className='danger'> Пароль должен содержать не менее 8 символов </span>
+                    : null 
+                  }
                 </div>
-                { !passwordVerified
+                { password.length < 8
                   ? <button disabled type='button' className='disabled'> Войти </button>
                   : <button type='button' onClick={handleClick}> Войти </button>
                 }
@@ -258,5 +250,3 @@
 
       return !modalOpen ? null : render
     }
-
-
